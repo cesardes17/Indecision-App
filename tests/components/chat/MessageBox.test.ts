@@ -13,17 +13,42 @@ describe('<MessageBox />', () => {
 
   test('emits sendMessage event when button is clicked with message value', async () => {
     const message = 'Hola Mundo!';
-    // const input = wrapper.find('input[type="text"]');
-    // await input.setValue(message);
-    // const sendButton = wrapper.find('button');
-    // console.log(sendButton.html());
-    // await sendButton.trigger('click');
 
-    await wrapper.find('input[type="text"]').setValue(message);
-    await wrapper.find('button').trigger('click');
+    const input = wrapper.find('input[type="text"]');
+    await input.setValue(message);
+    const sendButton = wrapper.find('button');
+
+    await sendButton.trigger('click');
 
     expect(wrapper.emitted('sendMessage')?.[0]).toEqual([message]);
 
     expect((wrapper.vm as any).newMessage).toBe('');
+  });
+
+  test('emits sendMessage event when keypress.enter is triggered with message value', async () => {
+    const message = 'Hola Mundo!';
+
+    const input = wrapper.find('input[type="text"]');
+    await input.setValue(message);
+    await input.trigger('keypress.enter');
+
+    expect(wrapper.emitted('sendMessage')?.[0]).toEqual([message]);
+
+    expect((wrapper.vm as any).newMessage).toBe('');
+  });
+
+  test('emits sendMessage event when keypress.enter is triggered with message value', async () => {
+    const wrapper = mount(MessageBox);
+
+    const message = '';
+
+    const input = wrapper.find('input[type="text"]');
+    const sendButton = wrapper.find('button');
+
+    await input.setValue(message);
+    await input.trigger('keypress.enter');
+    await sendButton.trigger('click');
+
+    expect(wrapper.emitted('sendMessage')).toBeFalsy();
   });
 });

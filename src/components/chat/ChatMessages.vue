@@ -9,18 +9,18 @@
 <script setup lang="ts">
 import type { ChatMessage } from '@/interfaces/chat-message.interface';
 import ChatBubble from './ChatBubble.vue';
-import { ref, watch, nextTick, toRef } from 'vue';
+import { ref, watch, nextTick } from 'vue';
 
 interface Props {
   messages: ChatMessage[];
 }
 
 const props = defineProps<Props>();
-const messagesRef = toRef(props.messages)
+// const messagesRef = toRef(props.messages)
 const chatRef = ref<HTMLDivElement | null>(null);
 
 watch(
-  messagesRef,
+  props,
   async () => {
     await nextTick();
     chatRef.value?.scrollTo({

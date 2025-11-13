@@ -1,10 +1,10 @@
 <template>
 
-  <IndecisionVue />
+  <IndecisionView />
 </template>
 
 <script lang="ts" setup>
-import IndecisionVue from './views/IndecisionVue.vue';
+import IndecisionView from './views/IndecisionView.vue';
 
 
 </script>
